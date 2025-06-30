@@ -1,0 +1,58 @@
+CREATE DATABASE IF NOT EXISTS RetailStore;
+USE REtailstore;
+
+CREATE TABLE Customers(
+CustomerID INT  PRIMARY KEY,
+CustomerName VARCHAR(100)
+);
+
+CREATE TABLE Orders(
+OrderID INT PRIMARY KEY,
+Product VARCHAR(100),
+Amount DECIMAL(10,2),
+CustomerID INT,
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+INSERT INTO Customers VALUES
+(1, 'Rahul Sharma'),
+(2, 'Anjali Mehta'),
+(3, 'Amit Verma'),
+(4, 'Nisha Roy');
+
+INSERT INTO Orders VALUES
+(101, 'Laptop', 5000, 2),
+(102, 'Mouse', 500, 1),
+(103, 'Keyboard', 700, 1),
+(104, 'Montior', 1200, NULL);
+
+#Inner join
+SELECT C.CustomerName, O.Product, O.Amount
+FROM Customers AS C
+INNER JOIN Orders as O ON C.CustomerID = O.CustomerID; 
+
+#Left Join
+SELECT C.CustomerName, O.Product, O.Amount
+FROM Customers AS C
+LEFT JOIN Orders as O ON C.CustomerID = O.CustomerID; 
+
+#Right Join
+SELECT C.CustomerName, O.Product, O.Amount
+FROM Customers AS C
+RIGHT JOIN Orders as O ON C.CustomerID = O.CustomerID; 
+
+
+# Full ouetr join using UNION On RIGHT AND LEFT JOIN
+
+SELECT C.CustomerName, O.Product, O.Amount
+FROM Customers AS C
+LEFT JOIN Orders as O ON C.CustomerID = O.CustomerID; 
+UNION
+SELECT C.CustomerName, O.Product, O.Amount
+FROM Customers AS C
+RIGHT JOIN Orders as O ON C.CustomerID = O.CustomerID; 
+
+# Full outer join (NOT SUPPOERT IN MYSQL)
+SELECT C.CustomerName, O.Product, O.Amount
+FROM Customers AS C
+FULL OUTER JOIN Orders as O ON C.CustomerID = O.CustomerID;
