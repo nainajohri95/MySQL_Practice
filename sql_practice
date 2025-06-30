@@ -1,0 +1,35 @@
+# Creating Schema and Table
+CREATE DATABASE Naina;
+ USE naina;
+ CREATE TABLE Sales(
+ PRODUCT varchar(50),
+ CATEGORY varchar(50),
+ AMOUNT int,
+ SALEDATE date
+ );
+ 
+# Inserting data inside Table
+ INSERT INTO Sales(PRODUCT, CATEGORY, AMOUNT, SALEDATE) VALUES
+ ('Pen', 'Stationary', 20, '2025-03-01'),
+ ('Notebook', 'Stationary', 101, '2024-01-05'),
+ ('Fan', 'Electonic', 500, '2025-02-09'),
+ ('Mouse', 'Electonic', 200, '2023-09-09'),
+ ('Keyboard', 'Electonic', 500, '2024-09-09'),
+ ('Charger', 'Electonic', 500, '2025-08-09'),
+ ('Bag', 'Accessiories', 700, '2023-07-01');
+
+
+ SELECT * FROM Sales;
+ SELECT COUNT(*) FROM Sales;
+
+ SELECT SUM(AMOUNT) FROM Sales;
+ SELECT AVG(AMOUNT) FROM Sales;
+ SELECT MIN(AMOUNT) FROM Sales;
+ SELECT MAX(AMOUNT) FROM Sales;
+ 
+ SELECT CATEGORY, SUM(AMOUNT)
+ FROM Sales Group By CATEGORY;
+ 
+ SELECT CATEGORY, SUM(AMOUNT) FROM Sales
+ Group BY CATEGORY
+ HAVING SUM(AMOUNT) > 1000;
