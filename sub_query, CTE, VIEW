@@ -1,0 +1,49 @@
+CREATE DATABASE IF NOT EXISTS SimpleStore;
+USE SimpleStore;
+
+CREATE TABLE Sales(
+SalesID INT AUTO_INCREMENT PRIMARY KEY,
+Product VARCHAR(50),
+Category VARCHAR(50),
+Amount DECIMAL(10,2),
+SaleDate DATE);
+
+INSERT INTO Sales(Product, Category, Amount, SaleDate) VALUES
+('Pen', 'Stationary', 25.00, '2025-03-01'),
+('Notebook', 'Stationary', 50.00, '2025-03-01'),
+('Mouse', 'Electornics', 500.00, '2025-03-02'),
+('Keyboard', 'Electornics', 700.00, '2025-03-02'),
+('Charger', 'Electornics', 300.00, '2025-03-03'),
+('Bag', 'Accessories', 100.00, '2025-03-04');
+
+#Sub query
+# EX if we want to find those Products and their amount whose amount is grater than avg amount 
+SELECT Product, Amount 
+FROM Sales
+WHERE Amount > (SELECT AVG(Amount) FROM Sales);
+
+# CTE (Common Table Expression) 
+#Its is a temprory result created using With leyword
+ # Let say we want Totalsale but category wise, for this will create a CTE
+ 
+ WITH CategoryTotals AS(
+ SELECT Category, Sum(Amount) AS TotalSales
+ FROM Sales
+ GROUP BY Category
+ )
+--  # Now we want those categories who is having sales more than 1000
+ SELECT Category, TotalSales
+ FROM CategoryTotals
+ WHERE TotalSales > 1000;
+ 
+--  # VIEW
+-- CREATE VIEW CategorySales :- it meanse create a virtual table
+-- AS:- View starts from here
+
+CREATE VIEW CategorySales AS 
+SELECT Category, SUM(Amount) AS TotalSales
+FROM Sales
+GROUP BY Category;
+
+-- we can se data like this
+SELECT * FROM CategorySales WHERE TotalSales > 500; 
