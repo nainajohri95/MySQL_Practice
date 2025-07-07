@@ -43,3 +43,12 @@ DENSE_RANK() OVER(ORDER BY new_id) AS "Dense_Rank",
 PERCENT_RANK() OVER(ORDER BY new_id) AS "Percent_Rank"
 FROM DATA;
 
+-- Analytic function
+-- Ifwe dont use any Partition BY or ROWS Clause then in case of LAST_VALUE we will get same col value 
+-- If we actually want the LAST_VALUE We should use ROWS BETWWEN/ UNBOUNEDE PRECEDING/ UNBOUBDED FOLLOWING
+SELECT new_id,
+FIRST_VALUE(new_id) OVER(ORDER BY new_id) AS "FIRST VALUE",
+LAST_VALUE(new_id) OVER(ORDER BY new_id) AS "LAST VALUE",
+LEAD(new_id) OVER(ORDER BY new_id) AS "LEAD",
+LAG(new_id) OVER(ORDER BY new_id) AS "LAG"
+FROM DATA;
