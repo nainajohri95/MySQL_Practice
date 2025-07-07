@@ -52,3 +52,9 @@ LAST_VALUE(new_id) OVER(ORDER BY new_id) AS "LAST VALUE",
 LEAD(new_id) OVER(ORDER BY new_id) AS "LEAD",
 LAG(new_id) OVER(ORDER BY new_id) AS "LAG"
 FROM DATA;
+
+-- QUE Offset the LEAD and LAG value by 2 in the o/p column
+SELECT new_id,
+LEAD(new_id,2) OVER(ORDER BY  new_id) AS "LEAD_BY2",
+LAG(new_id,2) OVER(ORDER BY new_id) AS "LAG_BY2"
+FROM DATA;
