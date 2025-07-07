@@ -1,0 +1,26 @@
+CREATE DATABASE IF NOT EXISTS windowdb;
+use windowdb;
+CREATE TABLE DATA(
+new_id int,
+new_cat VARCHAR(20)
+);
+
+INSERT INTO DATA VALUES 
+(100, 'Agni'),
+(200, 'Agni'),
+(500, 'Dharti'),
+(700, 'Dharti'),
+(200, 'Vayu'),
+(300, 'Vayu'),
+(500, 'Vayu');
+
+
+-- 	Aggregate  window fun
+
+SELECT new_id, new_cat,
+SUM(new_id) OVER(PARTITION BY new_cat) AS "Total",
+AVG(new_id) OVER(PARTITION BY new_cat) AS "Average",
+COUNT(new_id) OVER(PARTITION BY new_cat) AS "Count",
+MIN(new_id) OVER(PARTITION BY new_cat) AS "Min",
+MAX(new_id) OVER(PARTITION BY new_cat) AS "Max"
+FROM DATA;
